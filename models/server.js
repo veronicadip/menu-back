@@ -8,7 +8,7 @@ class Server{
         this.app= express();
         this.port= process.env.PORT;
         this.authPath='./api/auth';
-        this.usuariosPath='./api/usuarios'
+        this.usuariosPath='./api/usuario'
         this.pedidosPath='./api/pedidos'
         this.menuPath='./api/menu'
         this.buscarPath='./api/buscar'
@@ -22,6 +22,7 @@ class Server{
         this.middlewares();
 
         //funcion para as rutas
+        this.routes();
 
     }
     async conectarDB(){
@@ -41,7 +42,7 @@ class Server{
 
 
 routes (){
-    this.app.use(this.usuariosPath,require('../routes/usuarios'));
+    this.app.use(this.usuariosPath,require('../routes/usuario'));
 }
 listen(){
     this.app.listen(this.port,()=>{
