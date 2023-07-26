@@ -1,8 +1,6 @@
-const express = require('express')
-const app = express()
+const Server = require('./models/server');
+require ('dotenv').config();
 
-app.get('/', function (req, res) {
-  res.send('Hola')
-})
+const server = new Server();
 
-app.listen(3000)
+server.listen();
