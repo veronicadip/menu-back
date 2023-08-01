@@ -1,20 +1,21 @@
 const { response, request }= require('express');
-const {validationResults}= require('express-validator');
-const Usuario =require('../models/usuarios');
+const {validationResult}= require('express-validator');
+const Usuario =require('../models/usuario');
+
 
 const usuariosGet= async( req = request, res= response) =>{
     //paginacion 
    const { desde=0, limite=5} = req.query;
     const query= {estado :true}
 
-    const [total,usuario ] = await promise.all([
+    const [total,usuarios ] = await promise.all([
         Usuario.countDocuments(query),
         Usuario.find(query).skip(desde).limit(limite)
 
     ])
  //para traer el total de los usuarios
     res.json({
-    mensaje:'usuarios obtenidos',
+    message:'usuarios obtenidos',
     total,
     usuarios
 
@@ -39,3 +40,7 @@ res.json=({
 })
 
 }
+
+
+module.exports = {usuariosGet,
+usuariosPost};
