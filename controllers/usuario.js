@@ -1,6 +1,7 @@
 const { response, request }= require('express');
 const {validationResult}= require('express-validator');
 const Usuario =require('../models/usuario');
+const usuario = require('../models/usuario');
 
 
 const usuariosGet= async( req = request, res= response) =>{
@@ -36,11 +37,56 @@ await usuario.save();
 
 res.json=({
     usuario,
-    message:"usaurio creado correctamente",
+    message:"usuario creado correctamente",
 })
 
 }
 
+const usuariosPut= async (req=request, res=response) =>{
+                    const {id}= req.params;
+               
+               //obtener datos para actualizarlos 
+               const{password,mail, ...resto} = req.body;
+               
+               //si actualizo el password debo cifrarlo
+               if(password){
+                const salt= bcrypt.gentSaltSync(10);
+                resto.password= bcrypt.hashSync(password,salt);
+               }
+               resto.mail=mail;
+               //buscar usuario y actualizarlo
+               const usuario =await Usuario.findByIdAndUpdate(id, resto, {new:true})   
+               
+               res.json({
+                    message:'Usuario actualizado',
+                    usuario
+               })
+}
 
-module.exports = {usuariosGet,
-usuariosPost};
+const usuariosDelete= async (req=request, res=response) =>{
+
+                const {id}=req.params;
+                const usuarioAutenticado =req.usuario;
+
+                const usuario= await Usuario.findById(id);
+
+                if(!usuario.estado){
+                    return res.json({
+                        message:'usario ya esta inactivo'
+                    })
+                }
+                const usuarioInactivo = await Usuario.findByIdAndUpdate(id, {estado: false}, {new: true});
+
+                res.json({
+                    message: 'Usuario inactivo',
+                    usuarioInactivo,
+                    usuarioAutenticado
+                })
+}
+
+module.exports = {
+    usuariosGet,
+    usuariosPost,
+    usuariosPut,
+    usuariosDelete
+};

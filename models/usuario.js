@@ -8,7 +8,7 @@ const UsuarioSchema = Schema({
     direccion:{type: String, required:[true,'El direccion es obligatorio']},
     password:{type: String, required:[true,'El contraseña es obligatorio']},
     rol:{type: String, required:true}, 
-    estado:{type: Boolean, required:true},
+    estado:{type: Boolean, default:true},
     
 })
  
