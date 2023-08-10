@@ -1,5 +1,6 @@
 const { response, request }= require('express');
-const {validationResult}= require('express-validator');
+const { validationResult }= require('express-validator');
+const bcrypt = require('bcryptjs');
 const Usuario =require('../models/usuario');
 const usuario = require('../models/usuario');
 
@@ -30,7 +31,11 @@ const usuariosPost= async( req=request, res=response) =>{
     const datos = req.body;
     const {nickname,mail,celular,direccion,password,rol} = datos;
     const usuario =new Usuario({nickname,mail,celular,direccion,password,rol });
+//Encriptar la constraseña
 
+const salt = bcrypt.genSaltSync(10);
+const hash = bcrypt.hashSync(password,salt);
+usuario.password= hash;
 
 //para guardar en la bd
 await usuario.save();
