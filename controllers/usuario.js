@@ -55,12 +55,12 @@ const usuariosPut= async (req=request, res=response) =>{
                
                //si actualizo el password debo cifrarlo
                if(password){
-                const salt= bcrypt.gentSaltSync(10);
+                const salt= bcrypt.genSaltSync(10);
                 resto.password= bcrypt.hashSync(password,salt);
                }
                resto.mail=mail;
                //buscar usuario y actualizarlo
-               const usuario =await Usuario.findByIdAndUpdate(id, resto, {new:true})   
+               const usuario = await Usuario.findByIdAndUpdate(id, resto, {new:true})   
                
                res.json({
                     message:'Usuario actualizado',
