@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const {check} = require('express-validator')
+const {check} = require('express-validator');
 const {usuariosGet,usuariosPost,usuariosPut,usuariosDelete}= require ('../controllers/usuario');
 const { emailExiste, esRolValido, usuarioExiste } = require('../helpers/db validator');
 const { validarCampos } = require('../middlewares/validar_campos');
@@ -13,7 +13,7 @@ router.post ('/', [check ('nickname', 'El nombre es requerido').notEmpty(),
                     check('password', 'La contraseña tiene que tener minimo 8 caracteres').isLength({min:6}),
                     check('mail').custom(emailExiste),
                     check('rol').custom(esRolValido),
-                    validarCampos
+                    validarCampos,
                     ],
 usuariosPost);
 
@@ -31,9 +31,7 @@ router.delete ('/:id', [
     esAdminRole,
     check("id", "No es un id valido").isMongoId(),
     check("id").custom(usuarioExiste),
-    validarCampos
-    
-
+    validarCampos,
 ],usuariosDelete);
 
 
