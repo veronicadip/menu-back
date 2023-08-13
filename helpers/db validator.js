@@ -20,4 +20,13 @@ const esRolValido = async (rol) => {
     }
 }
 
-module.exports= {emailExiste,esRolValido}
+//si existe el usuario por id 
+const usuarioExiste = async(id)=>{
+    const existeUsuario = await Usuario.findById(id)
+    
+    if(!existeUsuario){
+        throw new Error(`El id ${id} no corresponde a ningun usuario registrado`)
+    }
+}
+
+module.exports= {emailExiste,esRolValido,usuarioExiste}
