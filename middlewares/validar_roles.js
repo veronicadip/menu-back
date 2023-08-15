@@ -12,7 +12,7 @@ const esAdminRole = (req=request, res=response, next)=> {
     if(rol !== "ADMIN_ROLE"){
         return res.status(400).json({
             msg: "el usuario no es un administrador"
-        })
+        });
     }
     next();
 }

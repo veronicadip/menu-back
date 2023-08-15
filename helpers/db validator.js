@@ -3,7 +3,7 @@ const Rol = require ('../models/rol');
 
 //validar email 
 
-const emailExiste= async(mail)=>{
+const emailExiste = async(mail)=>{
 
     const existeEmail = await Usuario.findOne({mail})
     if (existeEmail) {
