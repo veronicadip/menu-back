@@ -14,8 +14,8 @@ const pedidosGet =async( req = request, res= response) =>{
         Pedidos.find(query)
         .skip(desde)
         .limit(limite)
-        .populate("usuario","email")
-        .populate("menu","nombre"),
+        .populate("usuario","nickname")
+        .populate("menu","nombre precio"),
 
     ]);
  //para traer el total de los usuarios
@@ -27,6 +27,21 @@ const pedidosGet =async( req = request, res= response) =>{
  }); 
 
 };
+//obtener pedido por su id 
+const pedidosGetId = async ( req=request, res=response,)=> {
+        const {id} = req.params;
+        const pedido =await Pedidos.findById(id)
+        .populate("usuario", "nickname")
+        .populate("menu", "nombre precio");
+
+
+     res.json({
+        pedido,
+         });   
+};
+
+
+
 
 const pedidosPost = async( req=request, res=response) =>{
     //recibir el cuerpo de la peticion 
@@ -84,7 +99,7 @@ const pedidosDelete= async (req=request, res=response) =>{
         message: 'Usuario inactivo',
         pedidosInactivo,
         pedidosAutenticado
-    })
-}
+    });
+};
 
-module.exports ={pedidosGet,pedidosPost,pedidosPut,pedidosDelete}
+module.exports ={pedidosGet, pedidosGetId,pedidosPost,pedidosPut,pedidosDelete}
