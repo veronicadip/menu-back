@@ -10,7 +10,7 @@ const router = Router();
 router.get ('/', usuariosGet);
 
 router.post ('/', [check ('nickname', 'El nombre es requerido').notEmpty(),
-                    check('password', 'La contraseña tiene que tener minimo 8 caracteres').isLength({min:6}),
+                    check('password', 'La contraseña tiene que tener minimo 8 caracteres').isLength({min:8}),
                     check('mail').custom(emailExiste),
                     check('rol').custom(esRolValido),
                     validarCampos,
