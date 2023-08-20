@@ -15,7 +15,8 @@ const PedidosSchema = Schema ({
         require:true,
         default:true,
     },
-    fecha: {type: Date},        
+    fecha: {type: Date},    
+    rol:{type: String, required:true},    
 })
 
 module.exports=model('Pedidos', Schema)
