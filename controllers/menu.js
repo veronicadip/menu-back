@@ -1,6 +1,4 @@
 const { response, request }= require('express');
-const { validationResult }= require('express-validator');
-const bcrypt = require('bcryptjs');
 const Menu =require('../models/menu');
 
 const menuGet =async( req = request, res= response) =>{
@@ -8,51 +6,39 @@ const menuGet =async( req = request, res= response) =>{
    const { desde=0, limite=5} = req.query;
     const query= {estado :true}
 
-    const [total, pedidos] = await Promise.all([
-        menu.countDocuments(query),
-        menu.find(query)
+    const [total, menu] = await Promise.all([
+        Menu.countDocuments(query),
+        Menu.find(query)
         .skip(desde)
         .limit(limite)
-        .populate("usuario","nickname")
-        .populate("menu","nombre precio"),
-
     ]);
     //para traer el total de los usuarios
     res.json({
         message:'Menu realizados',
         total,
-        pedidos,
-    
+        menu,
      }); 
-     //obtener menu por su id 
-const menuGetId = async ( req=request, res=response,)=> {
-    const {id} = req.params;
-    const Menu =await menu.findById(id)
-    .populate("usuario", "nickname")
-    .populate("menu", "nombre precio");
-
-
- res.json({
-    menu,
-     });   
+     
 };
 const menuPost = async( req=request, res=response) =>{
     //recibir el cuerpo de la peticion 
 
-    const {usuario,pedido,fecha} =  req.body;
+    const {nombre,precio,categoria,descripcion,foto} =  req.body;
     const data = {
-        usuario,
-        pedido,
-        fecha,
+        nombre,
+        precio,
+        categoria,
+        descripcion,
+        foto,
     };
     
-    const Menu = new menu(data);
+    const menu = new Menu(data);
     //para guardar en la bd
-await pedidos.save();
+await menu.save();
 
 res.status(201).json=({
     menu,
-    message:"Menu creado correctamente",
+    message:"Producto creado correctamente",
 });
 };
 const menuPut= async (req=request, res=response) =>{
@@ -61,11 +47,11 @@ const menuPut= async (req=request, res=response) =>{
 //obtener datos para actualizarlos 
 const {menu}= req.body;
 //buscar usuario y actualizarlo
-const Menu = await menu.findByIdAndUpdate(id, menu,{new:true})   
+const menus = await Menu.findByIdAndUpdate(id, menu,{new:true})   
 
 res.json({
-    message:'Usuario actualizado',
-    pedidos
+    message:'Producto actualizado',
+    menus
 });
 };
 const menuDelete= async (req=request, res=response) =>{
@@ -73,20 +59,19 @@ const menuDelete= async (req=request, res=response) =>{
     const {id}=req.params;
     const menuAutenticado =req.menu;
 
-    const pedidos= await menu.findById(id);
+    const menu= await Menu.findById(id);
 
     if(!menu.estado){
         return res.json({
-            message:'Menu ya esta inactivo'
+            message:'Producto ya esta inactivo'
         })
     }
-    const menuInactivo = await menu.findByIdAndUpdate(id, {estado: false}, {new: true});
+    const menuInactivo = await Menu.findByIdAndUpdate(id, {estado: false}, {new: true});
 
     res.json({
-        message: 'Usuario inactivo',
+        message: 'Producto inactivo',
         menuInactivo,
         menuAutenticado
     });
 };
-module.exports ={menuGet, menuGetId,menuPost,menuPut,menuDelete}
-}
+module.exports ={menuGet,menuPost,menuPut,menuDelete}
