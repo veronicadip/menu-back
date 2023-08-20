@@ -7,7 +7,7 @@ const MenuSchema = Schema({
     categoria:{type: String},
     descripcion:{type: String},
     foto:{type: String},
-    rol:{type: String, required:true}, 
+    //rol:{type: String, required:true}, 
     estado:{type: Boolean, default:true},
     
 })

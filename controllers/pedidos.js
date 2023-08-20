@@ -69,14 +69,14 @@ const pedidosPut= async (req=request, res=response) =>{
     const {id}= req.params;
 
 //obtener datos para actualizarlos 
-const {pedido}= req.body;
+const {...resto}= req.body;
 
 
 //buscar usuario y actualizarlo
-const pedidos = await Pedidos.findByIdAndUpdate(id, pedido,{new:true})   
+const pedidos = await Pedidos.findByIdAndUpdate(id, resto,{new:true})   
 
 res.json({
-    message:'Usuario actualizado',
+    message:'pedido actualizado',
     pedidos
 });
 };
@@ -96,7 +96,7 @@ const pedidosDelete= async (req=request, res=response) =>{
     const pedidosInactivo = await Pedidos.findByIdAndUpdate(id, {estado: false}, {new: true});
 
     res.json({
-        message: 'Usuario inactivo',
+        message: 'Pedido completado',
         pedidosInactivo,
         pedidosAutenticado
     });
