@@ -19,4 +19,4 @@ const PedidosSchema = Schema ({
     rol:{type: String, required:true},    
 })
 
-module.exports=model('Pedidos', Schema);
+module.exports=model('Pedidos', PedidosSchema);
