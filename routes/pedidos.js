@@ -15,17 +15,17 @@ router.get ('/',[validarJWT,
 ], pedidosGet);
 
 router.get ('/:id',[validarJWT,
-           check("id").custom(usuarioExiste),
+           //check("id").custom(usuarioExiste),
            validarCampos,
 ],pedidosGetId);
 
 router.post ('/', [validarJWT,
                   check("id").custom(usuarioExiste),
-                validarCampos,
+                  validarCampos,
                     ], pedidosPost);
 
 router.put ('/:id',[validarJWT,
-    check("id").custom(usuarioExiste), 
+    //check("id").custom(usuarioExiste), 
 ], pedidosPut);
 
 router.delete ('/:id', [validarJWT,esAdminRole,validarCampos,],pedidosDelete);

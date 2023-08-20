@@ -9,16 +9,16 @@ const router = Router();
 
 router.get ('/', menuGet);
 
-router.post ('/', [ 
-    esAdminRole,
-     check('rol').custom(esRolValido),
+router.post ('/', [ validarJWT,
+                   esAdminRole,
+     
                     validarCampos
                     ],
 menuPost);
 router.put ('/:id', [
     validarJWT,
     esAdminRole,
-    check("rol").custom(esRolValido),
+    
     validarCampos,
 ],
 menuPut);
@@ -27,7 +27,7 @@ router.delete ('/:id', [
     validarJWT,
     esAdminRole,
     check("id", "No es un id valido").isMongoId(),
-    check("id").custom(usuarioExiste),
+   
     validarCampos
     
 
