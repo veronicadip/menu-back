@@ -23,13 +23,14 @@ const menuGet =async( req = request, res= response) =>{
 const menuPost = async( req=request, res=response) =>{
     //recibir el cuerpo de la peticion 
 
-    const {nombre,precio,categoria,descripcion,foto} =  req.body;
+    const {nombre,precio,categoria,descripcion,foto,} =  req.body;
     const data = {
         nombre,
         precio,
         categoria,
         descripcion,
         foto,
+        
     };
     
     const menu = new Menu(data);
@@ -45,9 +46,9 @@ const menuPut= async (req=request, res=response) =>{
     const {id}= req.params;
 
 //obtener datos para actualizarlos 
-const {menu}= req.body;
+const { ...resto}= req.body;
 //buscar usuario y actualizarlo
-const menus = await Menu.findByIdAndUpdate(id, menu,{new:true})   
+const menus = await Menu.findByIdAndUpdate(id, resto,{new:true})   
 
 res.json({
     message:'Producto actualizado',
