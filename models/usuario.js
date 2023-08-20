@@ -19,4 +19,4 @@ const UsuarioSchema = Schema({
     return usuario;
 }*/
  
-module.exports=model('Usuario',UsuarioSchema)
+module.exports=model('Usuario',UsuarioSchema);

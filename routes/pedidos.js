@@ -29,3 +29,6 @@ router.put ('/:id',[validarJWT,
 ], pedidosPut);
 
 router.delete ('/:id', [validarJWT,esAdminRole,validarCampos,],pedidosDelete);
+
+
+module.exports= router;
