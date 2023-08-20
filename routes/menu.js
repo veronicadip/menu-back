@@ -9,13 +9,15 @@ const router = Router();
 
 router.get ('/', menuGet);
 
-router.post ('/', [  check('rol').custom(esRolValido),
+router.post ('/', [ 
+    esAdminRole,
+     check('rol').custom(esRolValido),
                     validarCampos
                     ],
 menuPost);
-
 router.put ('/:id', [
     validarJWT,
+    esAdminRole,
     check("rol").custom(esRolValido),
     validarCampos,
 ],
@@ -29,7 +31,7 @@ router.delete ('/:id', [
     validarCampos
     
 
-],usuariosDelete);
+],menuDelete);
 
 
 module.exports= router;
