@@ -25,7 +25,7 @@ router.post ('/', [validarJWT,
                     ], pedidosPost);
 
 router.put ('/:id',[validarJWT,
-    //check("id").custom(usuarioExiste), 
+    check("id").custom(usuarioExiste), 
 ], pedidosPut);
 
 router.delete ('/:id', [validarJWT,esAdminRole,validarCampos,],pedidosDelete);
