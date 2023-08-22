@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const {check} = require('express-validator')
-const {categoriaGetGet,categoriaPost,categoriaPut,categoriaDelete}= require ('../controllers/categoria');
+const {categoriaGet,categoriaPost,categoriaPut,categoriaDelete}= require ('../controllers/categoria');
 const { validarCampos } = require('../middlewares/validar_campos');
 const { validarJWT } = require('../middlewares/validar_jwt');
 const { esAdminRole } = require('../middlewares/validar_roles');
@@ -15,10 +15,9 @@ router.post ('/', [ validarJWT,
                     ],
 categoriaPost);
 router.put ('/:id', [
-    validarJWT,
-    esAdminRole,
-    
-    validarCampos,
+             validarJWT,
+             esAdminRole,
+            validarCampos,
 ],
 categoriaPut);
 
