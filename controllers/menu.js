@@ -11,6 +11,7 @@ const menuGet =async( req = request, res= response) =>{
         Menu.find(query)
         .skip(desde)
         .limit(limite)
+        populate("menu","nombre precio"),
     ]);
     //para traer el total de los usuarios
     res.json({
