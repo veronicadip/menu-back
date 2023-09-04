@@ -5,7 +5,7 @@ const {login} = require('../controllers/auth');
 
 const router = Router();
 
-router.post('/',[
+router.post('/login',[
     check("mail", "el correo no es valido").isEmail(),
     check("password", "la contraseña es obligatoria").notEmpty(),
     validarCampos
